@@ -1,0 +1,18 @@
+version: '2.1'
+services:
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile-db
+    restart: always
+    container_name: "db"
+    ports:
+      - 3306:3306
+
+  app:
+    build: .
+    links:
+      - db
+    container_name: "hibernate-starter"
+    depends_on:
+      - db
